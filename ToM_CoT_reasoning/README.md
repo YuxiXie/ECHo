@@ -14,6 +14,8 @@ We will release the comprehensive implementation of the `event causality inferen
 
 ### Prompting LLMs
 
+Details are coming soon.
+
 1. To raise question for further visual information extraction.
 ```bash
 python prompt_generation.py
@@ -21,4 +23,5 @@ python prompt_generation.py
 
 2. To conduct event causality inference
 ```bash
+python prompt_inference.py
 ```
