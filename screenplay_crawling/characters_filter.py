@@ -208,7 +208,7 @@ def get_characters(_block):
 
 
 if __name__ == '__main__':
-    DATA_PATH = "raw_data/full_csi_data_150wc.json"
+    DATA_PATH = "raw_data/full_csi_data_100wc.json"
     data = json_load(DATA_PATH)
 
     for k, v in tqdm(data.items()):

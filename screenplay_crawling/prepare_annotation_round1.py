@@ -51,6 +51,4 @@ if __name__ == '__main__':
     print('- # > 100: {}'.format(len([x for x in word_cnt if x > 100])))
     print('- # < 20: {}'.format(len([x for x in word_cnt if x < 20])))
 
-    import ipdb; ipdb.set_trace()
-
-    json_dump(to_annot, "preprocessed/task0/full_input_task0.json")
+    json_dump(to_annot, "preprocessed/full_input_round1.json")

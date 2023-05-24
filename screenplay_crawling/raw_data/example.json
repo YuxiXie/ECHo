@@ -1,0 +1,95 @@
+{
+    "S01E01": {
+        "title": "Pilot",
+        "n_blocks": 124,
+        "scripts": [
+          {
+            "word_cnt": 57,
+            "content": [
+              {
+                "type": "narration",
+                "text": "(A b*llet being loaded into a g*n.)"
+              },
+              {
+                "type": "narration",
+                "text": "(A second b*llet being loaded into the g*n.)"
+              },
+              {
+                "type": "narration",
+                "text": "(The g*n is loaded and closed."
+              },
+              {
+                "type": "utterance",
+                "text": "[[Royce Harmon]] (recorded): (V.O.) My name is Royce Harmon."
+              },
+              {
+                "type": "utterance",
+                "text": "[[Royce Harmon]] (recorded): (V.O.) I reside at 7642 Carpenter Street, Las Vegas, Nevada. I am 41 years of age ... ... and I'm going to k*ll myself."
+              }
+            ],
+            "raw_bid": 0,
+            "characters": [
+              {
+                "cnt": 2,
+                "form": "Royce Harmon"
+              }
+            ]
+          },
+          ...
+          {
+            "word_cnt": 103,
+            "content": [
+              {
+                "type": "utterance",
+                "text": "[[Roger]]: You know I can't. What am I going to do? Huh? It's your mess. You got to deal with it."
+              },
+              {
+                "type": "utterance",
+                "text": "[[Sgt. O'Riley]]: (o.s.) What started the beef with the v*ctim?"
+              },
+              {
+                "type": "utterance",
+                "text": "[[Roger]]: I don't know. Tempers, I guess."
+              },
+              {
+                "type": "utterance",
+                "text": "[[Benjamin Jennings]]: Hey! Hey, man! I was here first. You want to wait your turn?"
+              },
+              {
+                "type": "utterance",
+                "text": "[[Kenny Ramirez]]: What are you going to do, huh?"
+              },
+              {
+                "type": "narration",
+                "text": "(KENNY RAMIREZ pushes BENJAMIN JENNINGS who falls back against his car. He reaches into the waistband of his jeans and pulls out a p*stol and fires three shots at KENNY RAMIREZ.)"
+              },
+              {
+                "type": "utterance",
+                "text": "[[Roger]]: Bystander gets a little too nosy ... (he shrugs)"
+              }
+            ],
+            "raw_bid": 24,
+            "characters": [
+              {
+                "cnt": 3,
+                "form": "Kenny Ramirez"
+              },
+              {
+                "cnt": 3,
+                "form": "Roger"
+              },
+              {
+                "cnt": 2,
+                "form": "Benjamin Jennings"
+              },
+              {
+                "cnt": 1,
+                "form": "Sgt. O'Riley"
+              }
+            ]
+          },
+          ...
+        ]
+    },
+    ...
+}

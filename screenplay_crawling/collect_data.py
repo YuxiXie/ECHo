@@ -10,7 +10,7 @@ from utils import json_dump
 from constants import START_TERMS, NON_HUMAN_SPEAKERS
 
 
-OUTFILENAME = "raw_data/full_csi_data_200wc.json"
+OUTFILENAME = "raw_data/full_csi_data_100wc.json"
 
 def _is_others(sent):
     is_equal = sent.count('[') == sent.count(']')

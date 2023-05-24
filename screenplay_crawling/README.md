@@ -17,6 +17,8 @@ CSI
 python crawl_data.py
 ```
 The transcripts will be crawled and saved in [`raw_data/html_data`](./raw_data/html_data) as `.html` file per episode.
+You can modify `PAGE_INDEX` to specify the seasons to crawl.
+For later processing, we only focus on data till Season 8 as the others do not contain scene segmentation (indicated by `<hr />`).
 
 ## Pre-Processing
 
