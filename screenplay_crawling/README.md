@@ -28,6 +28,8 @@ python collect_data.py
 ```
 The organized data will be saved as [`raw_data/full_csi_data.json`](./raw_data/full_csi_data.json) (`OUTFILENAME`).
 
+**Note**: Since the [foreverdreaming website pages](https://transcripts.foreverdreaming.org/viewforum.php?f=34) have been updated, we provide the previous [`html_data`](https://drive.google.com/file/d/1ITFe0n1RjxUNAmDanQJoueul8DUCrnPj/view?usp=sharing) where the current processing code still work.
+
 Extract the characters' names for each block of transcripts (3 min)
 ```bash
 python characters_filter.py

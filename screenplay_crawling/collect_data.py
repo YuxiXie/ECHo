@@ -10,7 +10,7 @@ from utils import json_dump
 from constants import START_TERMS, NON_HUMAN_SPEAKERS
 
 
-OUTFILENAME = "raw_data/full_csi_data_100wc.json"
+OUTFILENAME = "./raw_data/full_csi_data_100wc.json"
 
 def _is_others(sent):
     is_equal = sent.count('[') == sent.count(']')
@@ -304,10 +304,11 @@ def process_block(_block, bid, max_word_cnt=200):
 
 if __name__ == '__main__':    
     ##=== Load and filter the transcripts ===##
-    g = os.walk('raw_data/html_data')
+    g = os.walk('./raw_data/html_data')
     corpus = {}
     for path, _, file_list in g:  
         for filename in tqdm(file_list):
+            if not filename.endswith('.html'): continue
             with open(os.path.join(path, filename), 'r', encoding='utf-8') as f:
                 content = f.read()
 
@@ -318,7 +319,7 @@ if __name__ == '__main__':
                 corpus[e_id] = {'title': title, 'content': content}
 
     ##=== Filter and save contents ===##
-    max_word_cnt = int(OUTFILENAME.split('.')[0].split('_')[-1].strip('wc'))
+    max_word_cnt = int(OUTFILENAME.split('.')[-2].split('_')[-1].strip('wc'))
 
     updated_corpus = {}
     for e_id, episode in tqdm(corpus.items()):

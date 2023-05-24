@@ -35,7 +35,7 @@ def get_season_corpus(page_start, page_end, s_id):
 
 def dump_season_html(season):
     for k, v in season.items():
-        with open(f'../html_data/{k}.html', 'w', encoding='utf-8') as f:
+        with open(f'./raw_data/html_data/{k}.html', 'w', encoding='utf-8') as f:
             f.write(v.text)
 
 
