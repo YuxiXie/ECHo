@@ -7,22 +7,21 @@ from time import sleep, time
 from utils import json_load, json_dump, jsonlines_load, jsonlines_dump
 from tenacity import wait_random_exponential, stop_after_attempt, retry
 
-parallel = False
-n_jobs = 4
+
+## path to the input .jsonl file (each line is an instance)
+INPUTFILE = ''
+OUTPUTFILE = ''
+
+USE_CHATGPT = False
+PROMPT_BATCH_SIZE = 8   # PS: ChatGPT only accepts batch-size = 1
 
 
-_s, _e = 0, 10
-print(f'Using keys {_s} to {_e - 1} ...')
 with open('./keys/my_keys.txt', 'r', encoding='utf-8') as f:
     text = f.read().strip().split('\n')
-KEYS = [line.strip().split('----')[2] for line in text[_s:_e]]
+KEYS = [line.strip() for line in text]
 
 num_key = len(KEYS)
-if num_key:
-    if parallel:
-        num_key = n_jobs * (num_key // n_jobs)
-    KEYS = random.sample(KEYS, min(len(KEYS), num_key))
-print('({} keys in total).'.format(len(KEYS)))
+print(f'({num_key} keys in total).')
 KEYS_DICT = {k: None for k in KEYS}
 
 ERRORS = ['Rate limit reached for default-code-davinci-002', 'Request timed out']
@@ -83,7 +82,7 @@ def _openai_prompt_batch(prompt, max_tokens=256, temperature=0.0, top_p=1, n=1, 
                         key=[], min_to_wait=3, max_to_wait=10, sleep_time=5, use_chatgpt=True):
     if use_chatgpt:
         prompt = [[
-            {'role': 'system', 'content': 'You are a helpful assistant that generates **specific** questions for visual question answering to extract visual information as required. Note that you will be only given the subscript of the video clip to generate the questions without knowing the visual information.'},
+            {'role': 'system', 'content': 'You are a helpful assistant that generates **specific** questions for visual question answering to extract visual information as required. Note that you will be only given the screenplay of the video clip to generate the questions without knowing the exact visual information.'},
             {'role': 'user', 'content': p},
         ] for p in prompt]
         assert len(prompt) == 1
@@ -122,7 +121,7 @@ def _construct_prompt(ptype, script, character):
         ptype_desc = "emotional traits"
         ptype_details = "facial expressions"
         
-    template = "Read the subscript of a crime-drama plot below:\n{}\n\nTo know the " \
+    template = "Read the screenplay of a crime-drama plot below:\n{}\n\nTo know the " \
         + ptype_desc + " of {}, generate a question (for visual question answering) to extract required information (about their " \
         + ptype_details + ") in the corresponding video clip. Note that you should infer what content the clip may contain based on above information."
 
@@ -174,25 +173,15 @@ def prompt_in_batch(prompt_list, outputfile, keys, batch_size=1, use_chatgpt=Tru
 
 
 if __name__ == '__main__':
-    dtype = 'all'
-    to_split = False
-    use_chatgpt = False
-    batch_size = 1
+    mtype = 'chatgpt' if USE_CHATGPT else 'base'
     
-    tail = ''
-    if to_split:
-        idx = 0
-        stepwise, kstep = 1050, 250
-        sid, eid = int(idx * stepwise), int((idx + 1) * stepwise)
-        data = jsonlines_load(f'./dataset/{dtype}/v01_{dtype}_all.json')[sid:eid]
-        keys = KEYS[idx * kstep: (idx + 1) * kstep]
-        tail += f'_{idx}'
-    else:
-        data = jsonlines_load(f'./dataset/{dtype}/v01_{dtype}_all.json')
-        keys = KEYS[:]
+    data = jsonlines_load(INPUTFILE)
+    keys = KEYS[:]
     
     data_dict, prompt_list = get_data(data)
-    mtype = 'chatgpt' if use_chatgpt else 'base'
-    results = prompt_in_batch(prompt_list, f'./dataset/{dtype}/v01_{dtype}_questions_{mtype}.json', keys, batch_size=batch_size, use_chatgpt=use_chatgpt)
+    
+    results = prompt_in_batch(prompt_list, f'{OUTPUTFILE}{mtype}.json', keys, 
+                              batch_size=PROMPT_BATCH_SIZE, 
+                              use_chatgpt=USE_CHATGPT)
     
 

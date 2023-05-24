@@ -1,56 +1,24 @@
-## Diagnostic Tasks
+## Framework of Theory-of-Mind (ToM) Enhanced Chain-of-Thought (CoT) Reasoning
 
-**PS**: We tried to generate video captions by concatenating a sequence of frames, but BLIP-2 cannot appropriately consider them sequentially in a clip. 
+We provide the code to prompt the Large Multimodal and Language Models iteratively to conduct ToM-enhanced CoT reasoning.
 
-### Task 1. role identification
+### Prompting Multimodal Models
 
-**Justification.** `role` usually indicates both individual and relational/interactional information of humans in social scenarios. It is important to understand and infer the probable reasons and outcomes of human behaviors.
+```bash
+python prompt_captioning.py
+```
+The current code simply demonstrates how to prompt the model to conduct captioning, visual question answering, and prompted inference on the tasks of `role identification` and `emotion recognition`. 
+We will release the comprehensive implementation of the `event causality inference` pipeline soon.
 
-#### CoT reasoning
-* **task description.** to determine the role (_e.g._, age, occupation) of a specified character
-* **input/output formulation.**
-    - <u>vanilla</u>: frame + subscript $\rightarrow$ role (BLIP-2 VQA)
-        * &#10004; ablation: w/o textual input (subscript)
-        * &#10004; main experiment
-    - <u>LLM-enhanced CoT</u>:
-        * &#10004; (appearance) characteristics recognition (BLIP-2 VQA)
-        * &#10004; visual question generation (LLM generation)
-        * &#10004; specific visual information extraction (BLIP-2 VQA) as `LLM-enhanced CoT`
-        * &#10004; role identification with `LLM-enhanced CoT` (~~BLIP-2 VQA~~ LLM generation)
-* **justification.** for the task itself, the CoT framework demonstrates a way to prompt both language and multimodal models to conduct human-centric reasoning in the zero-shot case.
+<sub><sup>This script is adapted from the examples from [LAVIS repo](https://github.com/salesforce/LAVIS)</sup></sub>.
 
+### Prompting LLMs
 
-### Task 2. emotional trait prediction
+1. To raise question for further visual information extraction.
+```bash
+python prompt_generation.py
+```
 
-**Justification.** `emotion` usually indicates the mental states of humans. It closely connects to the intents, thoughts, and actions.
-
-#### CoT reasoning
-* **task description.** to determine the emotional trait(s) of a specified character
-* **input/output formulation.**
-    - <u>vanilla</u>: frame + subscript $\rightarrow$ emotion (BLIP-2 VQA)
-        * &#10004; ablation: w/o textual input (subscript)
-        * &#10004; main experiment
-    - <u>LLM-enhanced CoT</u>:
-        * &#10004; facial expression recognition (BLIP-2 VQA)
-        * &#10004; visual question generation (LLM generation)
-        * &#10004; specific visual information extraction (BLIP-2 VQA) as `LLM-enhanced CoT`
-        * &#10004; emotion prediction with `LLM-enhanced CoT` (~~BLIP-2 VQA~~ LLM generation)
-* **justification.** for the task itself, the CoT framework demonstrates a way to prompt both language and multimodal models to conduct human-centric reasoning in the zero-shot case.
-
-
-### Task 3. event causality inference
-
-**Justification.** **TODO**
-
-#### CoT reasoning
-* **task description.** to predict the cause/effect following ToM-enhanced reasoning of specified events
-* **input/output formulation.**
-    - <u>vanilla</u>: frames + subscript $\rightarrow$ causality inference (BLIP-2 VQA)
-        * &#10004; checked frames
-        * &#10004; all frames
-    - <u>LLM-enhanced CoT</u>:
-        * &#10004; basic and human-centric information extraction (**Task 1 & 2**)
-        * inference (w/ prompt) using
-            * &#10004; BLIP-2 VQA
-            * &#10004; LLM generation
-
+2. To conduct event causality inference
+```bash
+```
